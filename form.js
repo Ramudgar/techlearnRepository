@@ -1,35 +1,63 @@
 
+// const form = document.getElementById('myForm');
+// const passwordInput = document.getElementById('password');
+// const confirmPasswordInput = document.getElementById('confirmPassword');
+
+// let eyeIcon = document.querySelector('.input-icon');
+// let eyeIcon2 = document.querySelector('.input-icon1');
+// eyeIcon.addEventListener('click', function () {
+//   if(passwordInput.type === 'password') {
+//     passwordInput.type = 'text';
+//     eyeIcon.classList.remove('fa-eye');
+//     eyeIcon.classList.add('fa-eye-slash');
+//   }
+//   else{
+//     passwordInput.type = 'password';
+//     eyeIcon.classList.remove('fa-eye-slash');
+//     eyeIcon.classList.add('fa-eye');
+//   }
+// });
+
+// eyeIcon2.addEventListener('click', function () {
+//   if(confirmPasswordInput.type === 'password') {
+//     confirmPasswordInput.type = 'text';
+//     eyeIcon2.classList.remove('fa-eye');
+//     eyeIcon2.classList.add('fa-eye-slash');
+//   }
+//   else{
+//     confirmPasswordInput.type = 'password';
+//     eyeIcon2.classList.remove('fa-eye-slash');
+//     eyeIcon2.classList.add('fa-eye');
+//   }
+// });
+
 const form = document.getElementById('myForm');
 const passwordInput = document.getElementById('password');
 const confirmPasswordInput = document.getElementById('confirmPassword');
 
-let eyeIcon = document.querySelector('.input-icon');
-let eyeIcon2 = document.querySelector('.input-icon1');
-eyeIcon.addEventListener('click', function () {
-  if(passwordInput.type === 'password') {
-    passwordInput.type = 'text';
+const togglePassword = (inputField, eyeIcon) => {
+  if (inputField.type === 'password') {
+    inputField.type = 'text';
     eyeIcon.classList.remove('fa-eye');
     eyeIcon.classList.add('fa-eye-slash');
-  }
-  else{
-    passwordInput.type = 'password';
+  } else {
+    inputField.type = 'password';
     eyeIcon.classList.remove('fa-eye-slash');
     eyeIcon.classList.add('fa-eye');
   }
+};
+
+const eyeIcon = document.querySelector('.input-icon');
+const eyeIcon2 = document.querySelector('.input-icon1');
+
+eyeIcon.addEventListener('click', function () {
+  togglePassword(passwordInput, eyeIcon);
 });
 
 eyeIcon2.addEventListener('click', function () {
-  if(confirmPasswordInput.type === 'password') {
-    confirmPasswordInput.type = 'text';
-    eyeIcon2.classList.remove('fa-eye');
-    eyeIcon2.classList.add('fa-eye-slash');
-  }
-  else{
-    confirmPasswordInput.type = 'password';
-    eyeIcon2.classList.remove('fa-eye-slash');
-    eyeIcon2.classList.add('fa-eye');
-  }
+  togglePassword(confirmPasswordInput, eyeIcon2);
 });
+
 
 
 
