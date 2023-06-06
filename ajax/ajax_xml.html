@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax Example with HTML</title>
+</head>
+
+<body>
+    <h1>Ajax Example</h1>
+    <button id="loadButton">Load XML Data</button>
+    <div id="output"></div>
+    
+    <script>
+    // Function to handle loading and displaying XML data
+    function loadXMLData() {
+        // Create an XMLHttpRequest object
+        const xhr = new XMLHttpRequest();
+
+        // Configure the request
+        xhr.open('GET', 'cdinfo.xml', true);
+        xhr.responseType = 'document';
+
+        // Send the request
+        xhr.send();
+
+        // Handle the response
+        xhr.onload = function() {
+        console.log(`Status Code: ${xhr.status}`);
+
+            if (xhr.status === 200) {
+                // Parse the XML response
+                const xmlDoc = xhr.responseXML;
+
+                // Access XML data and manipulate the DOM
+                const employees = xmlDoc.getElementsByTagName('employee');
+                const outputElement = document.getElementById('output');
+                
+                // Clear previous output
+                outputElement.innerHTML = '';
+
+                // Loop through the employee nodes
+                for (let i = 0; i < employees.length; i++) {
+                    const name = employees[i].getElementsByTagName('name')[0].textContent;
+                    const position = employees[i].getElementsByTagName('position')[0].textContent;
+                    console.log(`Employee Name: ${name}`);
+                    console.log(`Position: ${position}`);
+                    console.log('-------------------------');
+
+                    const employeeElement = document.createElement('div');
+                    employeeElement.textContent = `Employee Name: ${name}, Position: ${position}`;
+                    outputElement.appendChild(employeeElement);
+                }
+            }
+        };
+    }
+
+    // Add event listener to the load button
+    const loadButton = document.getElementById('loadButton');
+    loadButton.addEventListener('click', loadXMLData);
+    </script>
+</body>
+
+</html>

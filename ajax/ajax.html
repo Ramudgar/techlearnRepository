@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title >Ajax Example</title>
+
+
+</head>
+
+<body>
+    <div id="demo">
+        <h2>The XMLHttpRequest Object</h2>
+        <h3 id="myElement">the inner html content</h3>
+        <button type="button" onclick="loadDoc() ">Change Content</button>
+        </div>
+        
+        <script>
+
+const element = document.getElementById('myElement');
+const htmlContent = element.innerHTML;
+console.log(htmlContent);
+
+element.innerHTML = '<h2>New Heading for inner html</h2>';
+console.log(element.innerHTML);
+
+        function loadDoc() {
+          const xhttp = new XMLHttpRequest();
+          xhttp.onload = function() {
+            document.getElementById("demo").innerHTML =
+            this.responseText;
+          }
+          xhttp.open("GET", "ajaxinfo.txt");
+          xhttp.send();
+        }
+        </script>
+
+</html>
