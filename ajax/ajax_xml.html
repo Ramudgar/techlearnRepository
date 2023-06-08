@@ -7,11 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ajax Example with HTML</title>
 </head>
-
 <body>
     <h1>Ajax Example</h1>
-    <button id="loadButton">Load XML Data</button>
-    <div id="output"></div>
+    <button id="loadButton" onclick="loadXMLData()">Load XML Data</button>
+    <div id="output"> </div>
     
     <script>
     // Function to handle loading and displaying XML data
@@ -58,8 +57,8 @@
     }
 
     // Add event listener to the load button
-    const loadButton = document.getElementById('loadButton');
-    loadButton.addEventListener('click', loadXMLData);
+    // const loadButton = document.getElementById('loadButton');
+    // loadButton.addEventListener('click', loadXMLData);
     </script>
 </body>
 

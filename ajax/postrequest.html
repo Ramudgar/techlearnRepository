@@ -1,0 +1,139 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX POST Request with XML</title>
+</head>
+<body>
+    <button onclick="postData()">Send POST Request</button>
+  
+    <script>
+      function postData() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'example.xml');
+        // allow cors
+        xhr.setRequestHeader('Content-Type', 'application/xml', );
+        
+        var xmlData = '<person><name>John</name><age>25</age></person>';
+  
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+              var responseXML = xhr.responseXML;
+              // Process the XML response here
+              var nameElement = responseXML.getElementsByTagName('name')[0];
+              var name = nameElement.textContent;
+              console.log('Response:', name);
+            } else {
+              // Handle the error here
+              console.error('Error:', xhr.status);
+            }
+          }
+        };
+  
+        xhr.send(xmlData);
+      }
+    </script>
+  </body>
+</html> 
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Record with AJAX POST</title>
+</head>
+<body>
+    <h1>Create New Record</h1>
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name">
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email">
+
+    <button onclick="createRecord()">Submit</button>
+  
+    <script>
+      function createRecord() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'create.php');
+        xhr.setRequestHeader('Content-Type', 'application/xml');
+
+        var name = document.getElementById('name').value;
+        var email = document.getElementById('email').value;
+
+        var xmlData = '<record>';
+        xmlData += '<name>' + name + '</name>';
+        xmlData += '<email>' + email + '</email>';
+        xmlData += '</record>';
+
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+              // Record created successfully
+              console.log('Record created');
+            } else {
+              // Handle the error here
+              console.error('Error:', xhr.status);
+            }
+          }
+        };
+
+        xhr.send(xmlData);
+      }
+    </script>
+</body>
+</html> -->
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Record</title>
+</head>
+<body>
+    <h1>Create Record</h1>
+    
+    <form id="createForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email">
+        
+        <button type="submit">Create</button>
+    </form>
+    
+    <div id="result"></div>
+    
+    <script>
+        document.getElementById('createForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+            
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'create.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                    document.getElementById('result').innerHTML = xhr.responseText;
+                }
+            };
+            
+            var formData = 'name=' + encodeURIComponent(name) + '&email=' + encodeURIComponent(email);
+            
+            xhr.send(formData);
+        });
+    </script>
+</body>
+</html> -->
+
