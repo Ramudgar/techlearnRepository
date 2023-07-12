@@ -1,12 +1,12 @@
 const express = require("express");
 const app = express();
 
-
 app.use(express.json());
 
 const connectDB = require("./database/database");
 const userRoutes = require("./routes/userRoutes");
 const registerLogin = require("./routes/registerLogin");
+const productRoutes = require("./routes/productRoutes");
 
 connectDB();
 // api routes to send hello world
@@ -23,10 +23,12 @@ connectDB();
 //     res.send(`Hello ${name}`);
 //     });
 
-    // api routes for user from userRoutes.js
+// api routes for user from userRoutes.js
 app.use(userRoutes);
 app.use(registerLogin);
+app.use("/public", express.static(__dirname + "/public"));
 
+app.use(productRoutes);
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
