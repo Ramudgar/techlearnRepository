@@ -4,11 +4,7 @@ const User = require("../models/usermodel");
 const Product = require("../models/productModels");
 const domain = "http://localhost:3000/";
 const uploadServices = require("../services/uploadsServices");
-const re = new RegExp("\\s+", "g");
 
-function eliminateWhitespace(imageName) {
-  return imageName.replace(re, "");
-}
 
 // router for product addition
 router.post(
@@ -22,7 +18,6 @@ router.post(
         res.status(400).json({ msg: "Please upload image", success: false });
         return;
       } else {
-        // const newImageName = eliminateWhitespace(file.filename);
 
         const image = domain + "public/productUploads/" + file.filename;
         const product = await Product.create({

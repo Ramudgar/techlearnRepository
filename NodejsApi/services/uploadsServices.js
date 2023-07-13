@@ -4,18 +4,16 @@ const re = new RegExp("\\s+", "g");
 
 // the function below is to eliminate white spaces from the file name
 function eliminateWhitespace(imageName) {
-    return imageName.replace(re, "-");
-  }
+  return imageName.replace(re, "-");
+}
 
-//   now we will create a function to upload the file
+// now we will create a function to upload the file
 const filename = (req, file, next) => {
   let lastIndexof = file.originalname.lastIndexOf(".");
   let originalname = file.originalname.substring(0, lastIndexof);
   let ext = file.originalname.substring(lastIndexof);
   next(null, `${eliminateWhitespace(originalname)}-${Date.now()}${ext}`);
 };
-
-
 
 // const filename = (req, file, next) => {
 //   let lastIndexof = file.originalname.lastIndexOf(".");
@@ -43,25 +41,10 @@ const filter = (req, file, next) => {
     );
   }
 };
-const destination = (req, file, next) => {
-  next(null, `${__dirname}/../uploads/`);
-};
 
 const productImageDestination = (req, file, next) => {
   next(null, `${__dirname}/../public/productUploads`);
 };
-
-// const companyVideoDestination = (req, file, next) => {
-//   next(null, `${__dirname}/../uploads/company-videos`);
-// };
-
-const destinationimage = multer({
-  storage: multer.diskStorage({
-    destination: destination,
-    filename,
-  }),
-  fileFilter: filter,
-});
 
 const productImage = multer({
   storage: multer.diskStorage({
@@ -81,5 +64,4 @@ const productImage = multer({
 
 module.exports = {
   productImage,
-  destinationimage,
 };

@@ -26,6 +26,7 @@ connectDB();
 // api routes for user from userRoutes.js
 app.use(userRoutes);
 app.use(registerLogin);
+// make public folder static
 app.use("/public", express.static(__dirname + "/public"));
 
 app.use(productRoutes);

@@ -55,6 +55,7 @@ router.post("/user/login", (req, res) => {
           const token = jwt.sign({ _id: user_data._id }, "techlearn", {
             expiresIn: "1d",
           });
+
           res.json({
             msg: "Login successful",
             success: true,
