@@ -9,7 +9,7 @@ def get_international_event(date):
         "03-08": "International Women's Day",
         "05-01": "International Workers' Day",
         "12-25": "Christmas Day",
-        "07-14": "Developer Day"
+        "07-14": "Developers Day"
     }
 
     # Retrieve the event for the given date if it exists in the dictionary

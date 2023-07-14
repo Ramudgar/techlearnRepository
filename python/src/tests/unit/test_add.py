@@ -5,7 +5,7 @@ from os.path import abspath, dirname
 # Add parent directory of test file to the module search path
 sys.path.append(dirname(dirname(dirname(abspath(__file__)))))
 
-from module.add import add
+from module.calc import add
 
 
 class TestAddNumbers(unittest.TestCase):
@@ -15,3 +15,4 @@ class TestAddNumbers(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+    

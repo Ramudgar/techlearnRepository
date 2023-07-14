@@ -9,6 +9,10 @@ def submit_button_clicked():
     password = password_entry.get()
     confirm_password = confirm_password_entry.get()
 
+    if not name or not email or not password or not confirm_password:
+        messagebox.showerror("Error", "Please fill in all fields")
+        return
+
     if password != confirm_password:
         messagebox.showerror("Error", "Passwords do not match")
         return
