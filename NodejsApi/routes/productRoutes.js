@@ -4,12 +4,12 @@ const User = require("../models/usermodel");
 const Product = require("../models/productModels");
 const domain = "http://localhost:3000/";
 const uploadServices = require("../services/uploadsServices");
-
+const auth= require("../auth/auth");
 
 // router for product addition
 router.post(
   "/product/add",
-  uploadServices.productImage.single("image"),
+  uploadServices.productImage.single("image"),auth.verifyUser,
   async (req, res) => {
     try {
       const data = req.body;
@@ -18,7 +18,6 @@ router.post(
         res.status(400).json({ msg: "Please upload image", success: false });
         return;
       } else {
-
         const image = domain + "public/productUploads/" + file.filename;
         const product = await Product.create({
           name: data.name,
