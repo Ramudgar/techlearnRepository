@@ -28,7 +28,7 @@ def submit_login():
 
 
 root = Tk()
-root.title("Registration and Login Form")
+root.title("Login Form")
 
 
 # Login Form

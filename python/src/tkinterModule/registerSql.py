@@ -1,9 +1,8 @@
 
-import re
-import subprocess
 from tkinter import *
+import re
+import mysql.connector
 from tkinter import messagebox
-
 
 def validate_password(password):
     # Password must contain at least 8 characters,
@@ -12,35 +11,50 @@ def validate_password(password):
     pattern = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
     return re.match(pattern, password)
 
-
 def submit():
     name = name_entry.get()
     email = email_entry.get()
     password = password_entry.get()
     confirm_password = confirm_password_entry.get()
-
+    
     if not all((name, email, password, confirm_password)):
         messagebox.showerror("Error", "All fields must be filled!")
     elif password != confirm_password:
         messagebox.showerror("Error", "Passwords do not match!")
     elif not validate_password(password):
-        messagebox.showerror(
-            "Error", "Password must contain at least 8 characters including one uppercase letter, one lowercase letter, one digit, and one special character!")
+        messagebox.showerror("Error", "Password must contain at least 8 characters including one uppercase letter, one lowercase letter, one digit, and one special character!")
     else:
-        with open("user_data.txt", "a") as file:
-            file.write(f"Name: {name}\n")
-            file.write(f"Email: {email}\n")
-            file.write(f"Password: {password}\n")
-            file.write("\n")
-        messagebox.showinfo("Success", "Registration successful!")
-        # Launch login.py using subprocess
-        subprocess.Popen(["python", "login.py"])
-        root.destroy()
-
+        try:
+            conn = mysql.connector.connect(
+                host="localhost",
+                user="root",
+                database="techlearn"
+            )
+            cursor = conn.cursor()
+            # Create the users table if it doesn't exist
+            cursor.execute('''CREATE TABLE IF NOT EXISTS users (
+                                id INT AUTO_INCREMENT PRIMARY KEY,
+                                name VARCHAR(255) NOT NULL,
+                                email VARCHAR(255) NOT NULL,
+                                password VARCHAR(255) NOT NULL
+                            )''')
+            query = "INSERT INTO users (name, email, password) VALUES (%s, %s, %s)"
+            values = (name, email, password)
+            cursor.execute(query, values)
+            conn.commit()
+            messagebox.showinfo("Success", "Registration successful!")
+        except mysql.connector.Error as error:
+            messagebox.showerror("Error", f"Failed to connect to MySQL database: {error}")
+        finally:
+            if cursor:
+                cursor.close()
+            if conn:
+                conn.close()
 
 root = Tk()
 root.title("Registration Form")
 
+# GUI code
 # Styling
 root.configure(bg="#F8F8F8")
 root.geometry("400x300")
@@ -80,3 +94,4 @@ submit_button = Button(root, text="Submit", command=submit,
 submit_button.pack(pady=10)
 
 root.mainloop()
+
