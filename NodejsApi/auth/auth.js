@@ -20,10 +20,10 @@ const verifyUser = function (req, res, next) {
         next();
       })
       .catch(function (e) {
-        res.status(401).json({ msg: "tokens are not provided or validated " });
+        res.status(401).json({ msg: "You are authorised " });
       });
   } catch (e) {
-    res.status(401).json({ msg: "tokens are not provided or validated " });
+    res.status(401).json({ msg: "You are not authorised" });
   }
 };
 

@@ -53,7 +53,7 @@ router.post("/user/login", (req, res) => {
       bcryptjs.compare(password, user_data.password, (e, result) => {
         if (result) {
           const token = jwt.sign({ _id: user_data._id }, "techlearn", {
-            expiresIn: "1d",
+            expiresIn: "30d",
           });
 
           res.json({
