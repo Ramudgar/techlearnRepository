@@ -46,9 +46,21 @@ const productImageDestination = (req, file, next) => {
   next(null, `${__dirname}/../public/productUploads`);
 };
 
+const ProfileImageDestination = (req, file, next) => {
+  next(null, `${__dirname}/../public/profiles`);
+};
+
 const productImage = multer({
   storage: multer.diskStorage({
     destination: productImageDestination,
+    filename,
+  }),
+  fileFilter: filter,
+});
+
+const profileImage = multer({
+  storage: multer.diskStorage({
+    destination: ProfileImageDestination,
     filename,
   }),
   fileFilter: filter,
@@ -64,4 +76,5 @@ const productImage = multer({
 
 module.exports = {
   productImage,
+  profileImage,
 };

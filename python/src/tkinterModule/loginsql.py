@@ -34,8 +34,8 @@ def login():
 
 root = Tk()
 root.title("Login Form")
-
 # GUI code
+
 # Styling
 root.configure(bg="#F8F8F8")
 root.geometry("400x200")
