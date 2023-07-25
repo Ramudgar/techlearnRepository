@@ -1,17 +1,54 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 
 function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (e) => {
+    // Prevent the default behaviour of form submit
+    e.preventDefault();
+
+    const data = {
+      email: email,
+      password: password,
+    };
+    axios
+      .post("http://localhost:5000/user/login", data)
+      .then((response) => {
+        console.log(response.data);
+        alert(`success: ${response.data.msg}`);
+        setTimeout(() => {
+          // Redirect to login after 1 seconds
+          window.location.href = "/link";
+        }, 1000);
+      })
+      .catch((err) => {
+        if (err.response) {
+          // The request was made and the server responded with a status code
+          // Extract the error message from the response data
+          const errorMessage = err.response.data[0];
+          alert(`Error: ${errorMessage}`);
+        } else {
+          // Error occurred before the request was made or no response was received
+          alert("Sorry, something went wrong");
+          console.log(err);
+        }
+      });
+  };
+
   return (
     <>
       <div className="container">
         <form>
           <div className="form-group">
-            <label htmlFor="inputEmail">Username</label>
+            <label htmlFor="inputEmail">email</label>
             <input
-              type="text"
+              type="email"
               className="form-control"
               id="inputEmail"
-              placeholder="Username"
+              placeholder="email"
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className="form-group">
@@ -21,10 +58,15 @@ function Login() {
               className="form-control"
               id="inputPassword"
               placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
-          <button type="submit" className="btn btn-primary">
+          <button
+            type="submit"
+            className="btn btn-primary"
+            onClick={handleSubmit}
+          >
             Sign in
           </button>
         </form>

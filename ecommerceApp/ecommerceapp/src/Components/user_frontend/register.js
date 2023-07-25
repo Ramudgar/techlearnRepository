@@ -15,15 +15,15 @@ function Register() {
       password: password,
     };
     axios
-      .post("http://localhost:3000/user/register", data)
+      .post("http://localhost:5000/user/register", data)
       .then((response) => {
         console.log(response.data);
         alert(`success: ${response.data.msg}`);
 
-        // Clear the form
-        setEmail("");
-        // setUsername("");
-        setPassword("");
+        setTimeout(() => {
+          // Redirect to login after 1 seconds
+          window.location.href = "/login";
+        }, 1000);
       })
       .catch((err) => {
         if (err.response) {
