@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
 
 app.use(express.json());
 
@@ -25,6 +26,7 @@ connectDB();
 //     });
 
 // api routes for user from userRoutes.js
+app.use(cors());
 app.use(userRoutes);
 app.use(registerLogin);
 app.use(profileRoutes);
