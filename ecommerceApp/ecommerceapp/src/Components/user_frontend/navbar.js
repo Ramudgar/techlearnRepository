@@ -36,6 +36,16 @@ function NavbarComponent() {
                   Link
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link className="nav-link text-light" to="/login">
+                  Login
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link text-light" to="/register">
+                  Signup
+                </Link>
+              </li>
               <li className="nav-item dropdown text-light">
                 <Link
                   className="nav-link dropdown-toggle text-light"
