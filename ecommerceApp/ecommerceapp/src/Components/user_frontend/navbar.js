@@ -32,8 +32,8 @@ function NavbarComponent() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link text-light" to="link">
-                  Link
+                <Link className="nav-link text-light" to="/productform">
+                  Add Product
                 </Link>
               </li>
               <li className="nav-item">
