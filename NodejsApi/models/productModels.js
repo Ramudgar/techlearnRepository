@@ -22,7 +22,7 @@ const productSchema = new mongoose.Schema(
     },
     category: {
       type: String,
-      enum: ["Laptop", "Mobile", "Tablet", "Accessories"],
+      enum: ["Laptop", "Mobile", "Tablet"],
     },
     quantity: {
       type: Number,
@@ -32,32 +32,6 @@ const productSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    shipping: {
-      type: String,
-      enum: ["Yes", "No"],
-    },
-
-    shipped: {
-      type: String,
-      enum: ["Yes", "No"],
-    },
-    color: {
-      type: String,
-      enum: ["Black", "Brown", "Silver", "White", "Blue"],
-    },
-    brand: {
-      type: String,
-      enum: ["Apple", "Samsung", "Microsoft", "Lenovo", "ASUS"],
-    },
-    ratings: [
-      {
-        star: Number,
-        postedBy: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "User",
-        },
-      },
-    ],
   },
   { timestamps: true }
 );
