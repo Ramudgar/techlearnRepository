@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function NavbarComponent() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Check if the token exists in localStorage
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLoggedIn(true); // Set the isLoggedIn state to true if token exists
+    } else {
+      setIsLoggedIn(false); // Set the isLoggedIn state to false if token doesn't exist
+    }
+  }, []);
+
   return (
     <>
       <nav className="navbar navbar-expand-lg  bg-dark ">
@@ -31,11 +43,18 @@ function NavbarComponent() {
                   Home
                 </Link>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <Link className="nav-link text-light" to="/productform">
                   Add Product
                 </Link>
-              </li>
+              </li> */}
+              {isLoggedIn && ( // Conditionally render the "Add Product" link
+                <li className="nav-item">
+                  <Link className="nav-link text-light" to="/productform">
+                    Add Product
+                  </Link>
+                </li>
+              )}
               <li className="nav-item">
                 <Link className="nav-link text-light" to="/login">
                   Login
@@ -46,36 +65,10 @@ function NavbarComponent() {
                   Signup
                 </Link>
               </li>
-              <li className="nav-item dropdown text-light">
-                <Link
-                  className="nav-link dropdown-toggle text-light"
-                  to="#!"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Dropdown
+              <li className="nav-item">
+                <Link className="nav-link text-light" to="/productview">
+                  Product
                 </Link>
-                <ul className="dropdown-menu">
-                  <li>
-                    <Link className="dropdown-item  " to="#!">
-                      Action
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="dropdown-item  " to="#!">
-                      Another action
-                    </Link>
-                  </li>
-                  <li>
-                    <hr className="dropdown-divider" />
-                  </li>
-                  <li>
-                    <Link className="dropdown-item " to="#!">
-                      Something else here
-                    </Link>
-                  </li>
-                </ul>
               </li>
             </ul>
             <form className="d-flex" role="search">

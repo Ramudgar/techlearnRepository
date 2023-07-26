@@ -1,5 +1,6 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
+import Productview from "./Components/user_frontend/Productview";
 import Homepage from "./Components/user_frontend/homepage";
 import Link from "./Components/user_frontend/link";
 import Login from "./Components/user_frontend/login";
@@ -17,6 +18,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/productform" element={<ProductForm />} />
+        <Route path="/productview" element={<Productview />} />
       </Routes>
     </Router>
   );

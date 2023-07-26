@@ -17,10 +17,15 @@ function Login() {
       .post("http://localhost:5000/user/login", data)
       .then((response) => {
         console.log(response.data);
+
         alert(`success: ${response.data.msg}`);
         setTimeout(() => {
+          // Store the token in the localstorage
+          localStorage.setItem("token", response.data.token);
+
           // Redirect to login after 1 seconds
-          window.location.href = "/link";
+          console.log(response.data.token);
+          window.location.href = "/productform";
         }, 1000);
       })
       .catch((err) => {
