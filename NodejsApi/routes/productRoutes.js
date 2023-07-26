@@ -101,13 +101,11 @@ router.put(
           },
           { new: true }
         );
-        res
-          .status(201)
-          .json({
-            msg: "Product updated successfully",
-            success: true,
-            product,
-          });
+        res.status(201).json({
+          msg: "Product updated successfully",
+          success: true,
+          product,
+        });
       }
     } catch (e) {
       res.status(500).json({ msg: e, success: false });
