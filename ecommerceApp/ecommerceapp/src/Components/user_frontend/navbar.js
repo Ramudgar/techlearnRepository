@@ -7,6 +7,7 @@ function NavbarComponent() {
   useEffect(() => {
     // Check if the token exists in localStorage
     const token = localStorage.getItem("token");
+    
     if (token) {
       setIsLoggedIn(true); // Set the isLoggedIn state to true if token exists
     } else {

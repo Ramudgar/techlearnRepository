@@ -22,6 +22,7 @@ function Login() {
         setTimeout(() => {
           // Store the token in the localstorage
           localStorage.setItem("token", response.data.token);
+          localStorage.setItem("userData", JSON.stringify(response.data)); // Store the user data localstorage
 
           // Redirect to login after 1 seconds
           console.log(response.data.token);

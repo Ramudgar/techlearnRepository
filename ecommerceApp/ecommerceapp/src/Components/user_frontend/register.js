@@ -26,16 +26,8 @@ function Register() {
         }, 1000);
       })
       .catch((err) => {
-        if (err.response) {
-          // The request was made and the server responded with a status code
-          // Extract the error message from the response data
-          const errorMessage = err.response.data[0];
-          alert(`Error: ${errorMessage}`);
-        } else {
-          // Error occurred before the request was made or no response was received
-          alert("Sorry, something went wrong");
-          console.log(err);
-        }
+        alert(`Error: ${err.response.data.msg}`);
+        console.log(err.response.data.msg);
       });
   };
   return (

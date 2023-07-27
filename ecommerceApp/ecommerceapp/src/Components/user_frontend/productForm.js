@@ -31,6 +31,7 @@ function ProductForm() {
       .post("http://localhost:5000/product/add", formData, config)
       .then((response) => {
         console.log(response);
+        alert("Product added successfully");
       })
       .catch((err) => {
         console.log(err);
