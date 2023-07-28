@@ -2,9 +2,17 @@ import React from "react";
 
 function ProductCard({ name, price, quantity, description, category, image }) {
   const tokens = localStorage.getItem("token");
-  const userData = localStorage.getItem("userData");
 
-  console.log(userData);
+  const userData = localStorage.getItem("userData");
+  const userdata = JSON.parse(userData);
+  // const id = data.data._id;
+  // const isAdmin = userdata.data.isAdmin;
+  const isAdmin = userdata?.data?.isAdmin || false;
+
+
+  // console.log(userData);
+  // console.log(userdata);
+  // console.log(isAdmin);
 
   return (
     <>
@@ -30,15 +38,14 @@ function ProductCard({ name, price, quantity, description, category, image }) {
               />
             </div>
             <div className="">
-              {/* if token then create button for edit and delete else add to cart */}
-              {tokens ? (
-                <>
-                  <button className="btn btn-primary">Edit</button>
-                  <button className="btn btn-danger">Delete</button>
-                </>
+              {/* if user is not logged or isAdmin is false, show "Add to cart" button */}
+              {isAdmin === false || !tokens ? (
+                <button className="btn btn-primary">Add to cart</button>
               ) : (
                 <>
-                  <button className="btn btn-primary">Add to cart</button>
+                  {/* If user is logged in and isAdmin is true, show "Edit" and "Delete" buttons */}
+                  <button className="btn btn-primary">Edit</button>
+                  <button className="btn btn-danger">Delete</button>
                 </>
               )}
             </div>
