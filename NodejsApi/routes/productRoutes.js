@@ -111,5 +111,16 @@ router.put(
   }
 );
 
+// delete product by product id
+router.delete("/deleteProduct/:id", auth.verifyUser, async (req, res) => {
+  try {
+    const id = req.params.id;
+    const product = await Product.findByIdAndDelete(id);
+    res.status(200)
+      .json({ msg: "Product deleted successfully", success: true, product });
+  } catch (e) {
+    res.status(500).json({ msg: e, success: false });
+  }
+});
 
 module.exports = router;
