@@ -1,6 +1,15 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-function ProductCard({ name, price, quantity, description, category, image }) {
+function ProductCard({
+  id,
+  name,
+  price,
+  quantity,
+  description,
+  category,
+  image,
+}) {
   const tokens = localStorage.getItem("token");
 
   const userData = localStorage.getItem("userData");
@@ -9,10 +18,8 @@ function ProductCard({ name, price, quantity, description, category, image }) {
   // const isAdmin = userdata.data.isAdmin;
   const isAdmin = userdata?.data?.isAdmin || false;
 
-
-  // console.log(userData);
-  // console.log(userdata);
-  // console.log(isAdmin);
+  // convert _id to string to use it in the url for editProduct
+  const _id = id.toString();
 
   return (
     <>
@@ -44,8 +51,10 @@ function ProductCard({ name, price, quantity, description, category, image }) {
               ) : (
                 <>
                   {/* If user is logged in and isAdmin is true, show "Edit" and "Delete" buttons */}
-                  <button className="btn btn-primary">Edit</button>
-                  <button className="btn btn-danger">Delete</button>
+                  <Link className="btn btn-primary" to={`/editProduct/${_id}`}>
+                    Edit
+                  </Link>
+                  <Link className="btn btn-danger">Delete</Link>
                 </>
               )}
             </div>

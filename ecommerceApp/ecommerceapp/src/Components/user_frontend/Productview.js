@@ -11,8 +11,8 @@ function Productview() {
     axios
       .get("http://localhost:5000/getProduct")
       .then((response) => {
-        // console.log(response);
-        console.log(response.data);
+        console.log(response);
+        // console.log(response.data);
         setProduct(response.data.product);
       })
       .catch((err) => {
@@ -20,10 +20,12 @@ function Productview() {
       });
   }, []);
 
+
   return (
     <>
       {products.map((product) => (
         <ProductCard
+          id={product._id}
           name={product.name}
           price={product.price}
           description={product.description}
