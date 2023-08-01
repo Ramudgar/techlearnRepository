@@ -59,7 +59,6 @@ router.get("/getProduct/:id", async (req, res) => {
   }
 });
 
-// update product
 router.put(
   "/updateProduct/:id",
   uploadServices.productImage.single("image"),
@@ -69,7 +68,7 @@ router.put(
       const id = req.params.id;
       const data = req.body;
       const file = req.file;
-      if (!file || file.length === 0) {
+      if (!file) {
         const product = await Product.findByIdAndUpdate(
           id,
           {
@@ -83,9 +82,8 @@ router.put(
           { new: true }
         );
         res
-          .status(400)
-          .json({ msg: "data updated successfully", success: true, product });
-        return;
+          .status(200)
+          .json({ msg: "Data updated successfully", success: true, product });
       } else {
         const image = domain + "public/productUploads/" + file.filename;
         const product = await Product.findByIdAndUpdate(
@@ -101,16 +99,17 @@ router.put(
           },
           { new: true }
         );
-        res.status(201).json({
+        res.status(200).json({
           msg: "Product updated successfully",
           success: true,
           product,
         });
       }
     } catch (e) {
-      res.status(500).json({ msg: e, success: false });
+      res.status(500).json({ msg: e.message, success: false });
     }
   }
 );
+
 
 module.exports = router;
