@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -20,6 +21,22 @@ function ProductCard({
 
   // convert _id to string to use it in the url for editProduct
   const _id = id.toString();
+
+  const deleteProduct = () => {
+    axios
+      .delete(`http://localhost:5000/deleteProduct/${_id}`, {
+        headers: {
+          Authorization: `Bearer ${tokens}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <>
@@ -54,7 +71,9 @@ function ProductCard({
                   <Link className="btn btn-primary" to={`/editProduct/${_id}`}>
                     Edit
                   </Link>
-                  <Link className="btn btn-danger">Delete</Link>
+                  <Link className="btn btn-danger" onClick={deleteProduct}>
+                    Delete
+                  </Link>
                 </>
               )}
             </div>

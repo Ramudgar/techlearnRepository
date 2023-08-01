@@ -11,9 +11,7 @@ const EditProductForm = () => {
     category: "",
   });
   const [image, setImage] = useState();
-
   const { id } = useParams();
-
   useEffect(() => {
     axios
       .get(`http://localhost:5000/getProduct/${id}`)
