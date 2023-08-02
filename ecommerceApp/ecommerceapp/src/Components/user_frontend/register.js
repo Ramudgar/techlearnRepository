@@ -1,7 +1,15 @@
 import axios from "axios";
 import { useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 
 function Register() {
+  // state to handle recaptcha
+  const [isVerified, setIsVerified] = useState(false);
+  function onChange(value) {
+    // console.log("Captcha value:", value);
+    setIsVerified(true);
+  }
+
   const [email, setEmail] = useState("");
   // const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -64,11 +72,15 @@ function Register() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-
+          <ReCAPTCHA 
+          sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+           onChange={onChange} />
+          <br />
           <button
             type="submit"
             className="btn btn-primary"
             onClick={handleSubmit}
+            disabled={!isVerified}
           >
             Sign Up
           </button>
