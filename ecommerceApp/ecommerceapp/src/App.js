@@ -1,5 +1,6 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
+import ProtectedRoute from "./Components/config/protectedRoute";
 import Productview from "./Components/user_frontend/Productview";
 import EditProductForm from "./Components/user_frontend/editProduct";
 import Homepage from "./Components/user_frontend/homepage";
@@ -8,7 +9,6 @@ import Login from "./Components/user_frontend/login";
 import NavbarComponent from "./Components/user_frontend/navbar";
 import ProductForm from "./Components/user_frontend/productForm";
 import Register from "./Components/user_frontend/register";
-import ProtectedRoute from "./Components/config/protectedRoute";
 function App() {
   return (
     <Router>
@@ -29,7 +29,14 @@ function App() {
         />
 
         <Route path="/productview" element={<Productview />} />
-        <Route path="/editProduct/:id" element={<EditProductForm />} />
+        <Route
+          path="/editProduct/:id"
+          element={
+            <ProtectedRoute>
+              <EditProductForm />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Router>
   );

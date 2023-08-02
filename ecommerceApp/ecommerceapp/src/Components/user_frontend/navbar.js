@@ -20,6 +20,7 @@ function NavbarComponent() {
   const handleLogout = () => {
     localStorage.removeItem("token"); // Remove the token from localStorage
     setIsLoggedIn(false); // Set the isLoggedIn state to false
+    window.location.href = "/login"; // Redirect to the login page
   };
 
   return (
