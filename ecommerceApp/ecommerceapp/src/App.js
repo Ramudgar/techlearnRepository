@@ -1,4 +1,11 @@
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import axios from "axios";
+import { useState } from "react";
+import {
+  Route,
+  BrowserRouter as Router,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
 import "./App.css";
 import ProtectedRoute from "./Components/config/protectedRoute";
 import Productview from "./Components/user_frontend/Productview";
@@ -9,10 +16,28 @@ import Login from "./Components/user_frontend/login";
 import NavbarComponent from "./Components/user_frontend/navbar";
 import ProductForm from "./Components/user_frontend/productForm";
 import Register from "./Components/user_frontend/register";
+import SearchResultsPage from "./Components/user_frontend/searchResultPage";
+
 function App() {
+  const [results, setResults] = useState([]); // State to store search results
+  const navigate = useNavigate();
+
+  // Function to handle search
+  const handleSearch = async (query) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/searchProduct?name=${query}`
+      );
+      setResults(response.data.products);
+      // navigate("/search-results");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Router>
-      <NavbarComponent />
+      <NavbarComponent onSearch={handleSearch} />
 
       <Routes>
         <Route path="/" element={<Homepage />} />
@@ -36,6 +61,11 @@ function App() {
               <EditProductForm />
             </ProtectedRoute>
           }
+        />
+
+        <Route
+          path="/search-results"
+          element={<SearchResultsPage results={results} />}
         />
       </Routes>
     </Router>

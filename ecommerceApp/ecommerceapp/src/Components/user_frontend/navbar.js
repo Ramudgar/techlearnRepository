@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-function NavbarComponent() {
+function NavbarComponent({ onSearch }) {
   // set the initial value of isLoggedIn state to false
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -21,6 +21,12 @@ function NavbarComponent() {
     localStorage.removeItem("token"); // Remove the token from localStorage
     setIsLoggedIn(false); // Set the isLoggedIn state to false
     window.location.href = "/login"; // Redirect to the login page
+  };
+  const [query, setQuery] = useState("");
+
+  const handleSearch = (e) => {
+    e.preventDefault(); // Prevent the default form submission behavior
+    onSearch(query);
   };
 
   return (
@@ -56,17 +62,23 @@ function NavbarComponent() {
                 </Link>
               </li>
             </ul>
-            <form className="d-flex" role="search">
-              <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button className="btn btn-outline-success" type="submit">
-                Search
-              </button>
-            </form>
+            <div className="d-flex">
+              <form onSubmit={handleSearch}>
+                <input
+                  className="form-control me-2"
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search"
+                  onChange={(e) => setQuery(e.target.value)}
+                />
+                <button
+                  className="btn btn-outline-success"
+                  type="submit"
+                >
+                  Search
+                </button>
+              </form>
+            </div>
             <ul className="navbar-nav ml-auto">
               {isLoggedIn ? (
                 // Show logout link if logged in
