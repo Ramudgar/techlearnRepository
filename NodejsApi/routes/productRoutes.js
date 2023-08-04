@@ -123,4 +123,18 @@ router.delete("/deleteProduct/:id", auth.verifyUser, async (req, res) => {
   }
 });
 
+// search product by name or letter or word or anything else using query params and regex method of mongodb and $options 
+router.get('/searchProduct', async (req, res) => {
+  try {
+    const name = req.query.name;
+    const products = await Product.find({ $text: { $search: name } });
+    res.status(200).json({ msg: 'Product searched successfully', success: true, products });
+  } catch (e) {
+    res.status(500).json({ msg: e.message, success: false });
+  }
+});
+
+
+
+
 module.exports = router;

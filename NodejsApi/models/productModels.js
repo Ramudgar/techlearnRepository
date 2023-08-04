@@ -35,5 +35,7 @@ const productSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+// Enable text indexing on the 'name' field
+productSchema.index({ name: 'text' });
 
 module.exports = mongoose.model("Product", productSchema);
